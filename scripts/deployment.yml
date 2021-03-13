@@ -23,7 +23,7 @@ spec:
         - 30m
         - -label
         - node-type
-        image: localhost:5000/label-watch:2
+        image: kolikons/label-watch:0.0.1
         imagePullPolicy: Always
       restartPolicy: Always
 ---
