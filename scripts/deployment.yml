@@ -15,23 +15,30 @@ spec:
       labels:
         app: label-watch
     spec:
+      serviceAccountName: label-watch
+      restartPolicy: Always
       containers:
       - name: label-watch
-        command:
-        - ./label-watch
+        args:
         - -interval
         - 30m
         - -label
         - node-type
         image: kolikons/label-watch:0.0.1
         imagePullPolicy: Always
-      restartPolicy: Always
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: label-watch
+  namespace: default
+  labels:
+    app: label-watch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: secret-reader
-  namespace: default
+  name: label-watch
 rules:
 - apiGroups: [""]
   resources: ["nodes"]
@@ -40,13 +47,12 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: secret-reader
-  namespace: default
+  name: label-watch
 subjects:
 - kind: ServiceAccount
-  name: default
+  name: label-watch
   namespace: default
 roleRef:
   kind: ClusterRole
-  name: secret-reader
+  name: label-watch
   apiGroup: rbac.authorization.k8s.io
