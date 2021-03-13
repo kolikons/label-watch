@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: label-watch
+  name: label-watch
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: label-watch
+  template:
+    metadata:
+      labels:
+        app: label-watch
+    spec:
+      containers:
+      - name: label-watch
+        command:
+        - ./label-watch
+        - -interval
+        - 30m
+        - -label
+        - node-type
+        image: localhost:5000/label-watch:2
+        imagePullPolicy: Always
+      restartPolicy: Always
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: secret-reader
+  namespace: default
+rules:
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: [ "list", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: secret-reader
+  namespace: default
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io
