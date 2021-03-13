@@ -1,11 +1,8 @@
-name: build
+name: release
 on:
   push:
-    branches:
-      - 'master'
     tags:
-      - 'v*'
-  pull_request:
+      - v*
 
 jobs:
   build:
@@ -35,11 +32,6 @@ jobs:
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
-
-      # - name: Tests
-        # run: |
-        #   go mod tidy
-        #   go test -v ./...
 
       - name: Docker Login
         uses: docker/login-action@v1
