@@ -8,6 +8,12 @@ on:
     branches:
       - '*'
 jobs:
+  init-cancel-workflow:
+    name: "Cancel Previous Runs"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: styfle/cancel-workflow-action@0.8.0
+      
   build:
     strategy:
       matrix:
@@ -27,7 +33,7 @@ jobs:
       run: |
         go build -v .
         go test ./...
-        
+
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v2
       with:
