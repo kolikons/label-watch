@@ -30,12 +30,13 @@ dockers:
   - --label=org.opencontainers.image.version={{ .Version }}
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
   - "--label=org.opencontainers.image.created={{.Date}}"
+  - --label=org.opencontainers.image.licenses=MIT
 changelog:
   sort: asc
   filters:
     exclude:
-    - '^docs:'
-    - '^test:'
+    - '^doc:'
+    - 'typo'
 signs:
   - artifacts: checksum
     args: ["--batch", "-u", "{{ .Env.GPG_FINGERPRINT }}", "--output", "${signature}", "--detach-sign", "${artifact}"]
