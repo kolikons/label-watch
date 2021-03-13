@@ -3,7 +3,7 @@ builds:
   - env: [CGO_ENABLED=0]
     goos:
       - linux
-      - windows
+      # - windows
       - darwin
     goarch:
       - amd64
@@ -13,8 +13,8 @@ builds:
         goarch: '386'
       - goos: linux
         goarch: arm64
-      - goos: windows
-        goarch: arm64
+      # - goos: windows
+      #   goarch: arm64
 dockers:
 - image_templates:
    - "kolikons/{{.ProjectName}}:{{ .Version }}"
