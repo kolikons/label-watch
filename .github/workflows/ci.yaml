@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: styfle/cancel-workflow-action@0.8.0
-      
+
   build:
     strategy:
       matrix:
@@ -37,4 +37,4 @@ jobs:
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v2
       with:
-        args: release --snapshot --skip-publish --rm-dist
+        args: release --snapshot --skip-publish --skip-sign --rm-dist
