@@ -5,8 +5,10 @@ on:
   #   branches:
   #     - 'main'
   pull_request:
-    branches:
-      - '*'
+    paths:
+      - "pkg/**"
+    # branches:
+    #   - '*'
 jobs:
   init-cancel-workflow:
     name: "Cancel Previous Runs"
