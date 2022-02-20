@@ -1,14 +1,8 @@
 name: Go Build & Test
 on:
-  # limitation
-  # push:
-  #   branches:
-  #     - 'main'
   pull_request:
     paths:
       - "pkg/**"
-    # branches:
-    #   - '*'
 jobs:
   init-cancel-workflow:
     name: "Cancel Previous Runs"

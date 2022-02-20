@@ -14,7 +14,7 @@ jobs:
         with:
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
           charts_dir: charts
-          charts_url: https://charts.kolikons.io
+          charts_url: https://kolikons.github.io/charts/
           owner: kolikons
           repository: charts
           branch: gh-pages
