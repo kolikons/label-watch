@@ -87,8 +87,16 @@ docker run kolikons/label-watch:latest
 ```
 ---
 
+# Homebrew
+
+```sh
+brew install kolikons/tap/label-watch
+```
+---
+
 ## label-watch ARGS
 ```sh
+label-watch --help
 Usage of label-watch:
   -interval string
     	(optional) Start application in deamon mode. Supports format: 's', 'm', 'h'.

@@ -25,7 +25,7 @@ label-watch checks a specific label on worker node then create an label
 | image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
 | imagePullSecrets | list | `[]` |  |
 | label_watch.interval | string | `"30m"` | Supports format: 's', 'm', 'h' |
-| label_watch.label | string | `"node-type"` | Label that's checking on worker nodes then set label in format node-role.kubernetes.io/VALUE_FROM_LABEL=true. Supports multiple labels via coma separator. Example:  node-type,type,etc   |
+| label_watch.labels | string | `"node-type"` | Label that's checking on worker nodes then set label in format node-role.kubernetes.io/VALUE_FROM_LABEL=true. Supports multiple labels via coma separator. Example:  node-type,type,etc   |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` | Node labels for pod assignment ref: https://kubernetes.io/docs/user-guide/node-selection/ |
 | podAnnotations | object | `{}` | Key/value pairs that are attached to pods. |
