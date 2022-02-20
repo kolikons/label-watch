@@ -3,6 +3,7 @@ package cmd
 import (
 	"errors"
 	"flag"
+	"path/filepath"
 
 	"k8s.io/client-go/util/homedir"
 )
@@ -62,7 +63,7 @@ $ kubectl get node NODE -o jsonpath='{.metadata.labels}' | jq
 		flag.StringVar(
 			&c.Kubeconfig,
 			"kubeconfig",
-			"",
+			filepath.Join(home, ".kube", "config"),
 			"(optional) absolute path to the kubeconfig file",
 		)
 	} else {

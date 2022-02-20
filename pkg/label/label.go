@@ -11,6 +11,7 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/kubernetes"
 	v1 "k8s.io/client-go/kubernetes/typed/core/v1"
+	_ "k8s.io/client-go/plugin/pkg/client/auth"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 )
@@ -23,7 +24,7 @@ type patchStringValue struct {
 
 var updateErr error
 
-// Kubeconfig falg of path to kube config
+// Kubeconfig flag of path to kube config
 var Kubeconfig *string
 
 // APISet alias to connection k8s
@@ -32,15 +33,14 @@ var APISet func() v1.CoreV1Interface
 func getClient(p string) (*kubernetes.Clientset, error) {
 	var c *rest.Config
 	var e error
-	if p == "" {
-		// in cluster
-		c, e = rest.InClusterConfig()
-	} else {
+	// in cluster
+	c, e = rest.InClusterConfig()
+	if e != nil {
 		// out cluster
 		c, e = clientcmd.BuildConfigFromFlags("", p)
-	}
-	if e != nil {
-		return nil, e
+		if e != nil {
+			return nil, e
+		}
 	}
 	return kubernetes.NewForConfig(c)
 }
