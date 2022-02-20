@@ -1,0 +1,76 @@
+# Default values for label-watch.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# -- Replicas
+replicaCount: 1
+
+image:
+  repository: kolikons/label-watch
+  pullPolicy: IfNotPresent
+  # -- Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+# -- Key/value pairs that are attached to pods.
+podAnnotations: {}
+
+# -- Key/value pairs that are attached to pods.
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+
+
+# -- We usually recommend not to specify default resources and to leave this as a conscious
+# choice for the user. This also increases chances charts run on environments with little
+# resources, such as Minikube. If you do want to specify resources, uncomment the following
+# lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+resources: {}
+  # limits:
+  #   cpu: 20m
+  #   memory: 20Mi
+  # requests:
+  #   cpu: 10m
+  #   memory: 10Mi
+
+# -- Label that's checking on worker nodes then set label in format node-role.kubernetes.io/VALUE_FROM_LABEL=true.
+# Supports multiple labels via coma separator. 
+# Example:  node-type,type,etc
+label_watch: node-type 
+
+# -- Create Cluster Role to allow modify nodes
+rbac:
+  create: true
+
+# -- Specifies whether a service account should be created
+serviceAccount:
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- Node labels for pod assignment
+# ref: https://kubernetes.io/docs/user-guide/node-selection/
+nodeSelector: {}
+
+# -- Tolerations for pod assignment
+# ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Anti-affinity to disallow deploying client and master nodes on the same worker node
+affinity: {}
