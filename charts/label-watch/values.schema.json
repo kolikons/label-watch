@@ -26,7 +26,15 @@
             "type": "array"
         },
         "label_watch": {
-            "type": "string"
+            "type": "object",
+            "properties": {
+                "interval": {
+                    "type": "string"
+                },
+                "labels": {
+                    "type": "string"
+                }
+            }
         },
         "nameOverride": {
             "type": "string"
