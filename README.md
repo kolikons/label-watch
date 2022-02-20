@@ -1,5 +1,6 @@
 [![Release](https://img.shields.io/github/v/release/kolikons/label-watch.svg)](https://github.com/kolikons/label-watch/releases/latest)
 ![Release](https://github.com/kolikons/label-watch/actions/workflows/release.yaml/badge.svg)
+![helm release](https://github.com/kolikons/label-watch/actions/workflows/helm-release.yaml/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # label-watch
