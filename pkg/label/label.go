@@ -33,15 +33,14 @@ var APISet func() v1.CoreV1Interface
 func getClient(p string) (*kubernetes.Clientset, error) {
 	var c *rest.Config
 	var e error
-	if p == "" {
-		// in cluster
-		c, e = rest.InClusterConfig()
-	} else {
+	// in cluster
+	c, e = rest.InClusterConfig()
+	if e != nil {
 		// out cluster
 		c, e = clientcmd.BuildConfigFromFlags("", p)
-	}
-	if e != nil {
-		return nil, e
+		if e != nil {
+			return nil, e
+		}
 	}
 	return kubernetes.NewForConfig(c)
 }
