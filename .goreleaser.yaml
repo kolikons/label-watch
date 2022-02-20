@@ -3,7 +3,6 @@ builds:
   - env: [CGO_ENABLED=0]
     goos:
       - linux
-      # - windows
       - darwin
     goarch:
       - amd64
@@ -13,8 +12,6 @@ builds:
         goarch: '386'
       - goos: linux
         goarch: arm64
-      # - goos: windows
-      #   goarch: arm64
 dockers:
 - image_templates:
    - "kolikons/{{.ProjectName}}:{{ .Version }}"
@@ -40,3 +37,16 @@ changelog:
 signs:
   - artifacts: checksum
     args: ["--batch", "-u", "{{ .Env.GPG_FINGERPRINT }}", "--output", "${signature}", "--detach-sign", "${artifact}"]
+brews:
+  - name: label-watch
+    tap:
+      owner: kolikons
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    folder: Formula
+    homepage: "https://github.com/kolikons/label-watch"
+    description: "label-watch checks a specific label on worker node then create an label"
+    install: |
+      bin.install "label-watch"
+    test: |
+      system "#{bin}/label-watch --help"
