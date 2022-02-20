@@ -1,4 +1,4 @@
-app: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "app.fullname" . }}
@@ -41,6 +41,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
+      
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.affinity }}

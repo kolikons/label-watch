@@ -65,6 +65,20 @@ kind-worker          Ready    worker                 13m   v1.20.2
 kind-worker2         Ready    <none>                 13m   v1.20.2
 ```
 
+# Helm
+Add kolikons repository to Helm repos:
+```bash
+helm repo add kolikons https://kolikons.github.io/charts/
+```
+
+Install label-watch
+```bash
+helm install label-watch kolikons/label-watch \
+--namespace kube-system
+```
+
+---
+
 # Docker
 
 ```sh
