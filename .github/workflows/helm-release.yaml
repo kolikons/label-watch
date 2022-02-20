@@ -1,0 +1,21 @@
+name: helm release
+on:
+ push:
+    tags:
+      - "chart-*"
+
+jobs:
+  helm-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Publish Helm chart
+        uses: stefanprodan/helm-gh-pages@master
+        with:
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          charts_dir: charts
+          charts_url: https://charts.kolikons.io
+          owner: kolikons
+          repository: charts
+          branch: gh-pages
+          linting: off
