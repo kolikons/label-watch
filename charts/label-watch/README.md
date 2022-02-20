@@ -4,6 +4,12 @@
 
 label-watch checks a specific label on worker node then create an label
 
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| kolikons |  | https://github.com/kolikons/label-watch |
+
 ## Source Code
 
 * <https://github.com/kolikons/label-watch>
@@ -18,14 +24,15 @@ label-watch checks a specific label on worker node then create an label
 | image.repository | string | `"kolikons/label-watch"` |  |
 | image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
 | imagePullSecrets | list | `[]` |  |
-| label_watch | string | `"node-type"` | Label that's checking on worker nodes then set label in format node-role.kubernetes.io/VALUE_FROM_LABEL=true. Supports multiple labels via coma separator.  Example:  node-type,type,etc |
+| label_watch.interval | string | `"30m"` | Supports format: 's', 'm', 'h' |
+| label_watch.label | string | `"node-type"` | Label that's checking on worker nodes then set label in format node-role.kubernetes.io/VALUE_FROM_LABEL=true. Supports multiple labels via coma separator. Example:  node-type,type,etc   |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` | Node labels for pod assignment ref: https://kubernetes.io/docs/user-guide/node-selection/ |
 | podAnnotations | object | `{}` | Key/value pairs that are attached to pods. |
 | podLabels | object | `{}` | Key/value pairs that are attached to pods. |
 | podSecurityContext | object | `{}` |  |
 | rbac | object | `{"create":true}` | Create Cluster Role to allow modify nodes |
-| replicaCount | int | `1` | Replicas |
+| replicaCount | int | `1` | count of POD |
 | resources | object | `{}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | securityContext | object | `{}` |  |
 | serviceAccount | object | `{"annotations":{},"create":true,"name":""}` | Specifies whether a service account should be created |

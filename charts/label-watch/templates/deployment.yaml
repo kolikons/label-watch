@@ -35,8 +35,10 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
+            - -interval
+            - {{ .Values.label_watch.interval }}
             - -label
-            - {{ .Values.label_watch }}
+            - {{ .Values.label_watch.labels }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

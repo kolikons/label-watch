@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# -- Replicas
+# -- count of POD
 replicaCount: 1
 
 image:
@@ -44,10 +44,13 @@ resources: {}
   #   cpu: 10m
   #   memory: 10Mi
 
+label_watch:
+# -- Supports format: 's', 'm', 'h'
+  interval: 30m
 # -- Label that's checking on worker nodes then set label in format node-role.kubernetes.io/VALUE_FROM_LABEL=true.
 # Supports multiple labels via coma separator.
-# Example:  node-type,type,etc
-label_watch: node-type
+# Example:  node-type,type,etc  
+  labels: node-type
 
 # -- Create Cluster Role to allow modify nodes
 rbac:

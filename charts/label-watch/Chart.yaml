@@ -1,7 +1,10 @@
 apiVersion: v2
 name: label-watch
-description: A Helm chart for label-watch checks a specific label on worker node then create an label
+description: label-watch checks a specific label on worker node then create an label
 type: application
+maintainers:
+  - name: kolikons
+    url: https://github.com/kolikons/label-watch
 sources:
   - https://github.com/kolikons/label-watch
 version: 0.0.1
