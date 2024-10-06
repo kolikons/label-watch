@@ -64,11 +64,10 @@ signs:
     args: ["--batch", "-u", "{{ .Env.GPG_FINGERPRINT }}", "--output", "${signature}", "--detach-sign", "${artifact}"]
 brews:
   - name: label-watch
-    tap:
+    repository:
       owner: kolikons
       name: homebrew-tap
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
-    folder: Formula
     homepage: "https://github.com/kolikons/label-watch"
     description: "label-watch checks a specific label on worker node then create an label"
     install: |

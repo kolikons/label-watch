@@ -13,11 +13,17 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     name: Build & Test
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - uses: actions/setup-go@v5
         with:
@@ -33,4 +39,4 @@ jobs:
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:
-          args: release --snapshot --clean --skip=publish,sing
+          args: release --snapshot --clean --skip=publish,sign
