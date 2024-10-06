@@ -2,6 +2,7 @@ version: 2
 project_name: label-watch
 builds:
   - env: [CGO_ENABLED=0]
+    binary: label-watch
     goos:
       - linux
       - darwin
@@ -18,6 +19,7 @@ dockers:
       - "kolikons/{{.ProjectName}}:{{ .Version }}-amd64"
     use: buildx
     dockerfile: Dockerfile
+    goos: linux
     goarch: amd64
     build_flag_templates:
       - "--platform=linux/amd64"
@@ -33,6 +35,7 @@ dockers:
       - "kolikons/{{.ProjectName}}:{{ .Version }}-arm64"
     use: buildx
     dockerfile: Dockerfile
+    goos: linux
     goarch: arm64
     build_flag_templates:
       - "--platform=linux/arm64"

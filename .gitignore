@@ -3,7 +3,6 @@ bin/
 vendor/
 
 ./label-watch
-label-watch
 *.exe
 *.test
 *.prof
