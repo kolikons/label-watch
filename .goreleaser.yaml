@@ -9,31 +9,55 @@ builds:
       - arm64
     ignore:
       - goos: darwin
-        goarch: '386'
+        goarch: "386"
       - goos: linux
         goarch: arm64
 dockers:
-- image_templates:
-   - "kolikons/{{.ProjectName}}:{{ .Version }}"
-   - "kolikons/{{.ProjectName}}:latest"
-  dockerfile: Dockerfile
-  goos: linux
-  goarch: amd64
-  build_flag_templates:
-  - --label=org.opencontainers.image.title={{ .ProjectName }}
-  - --label=org.opencontainers.image.description={{ .ProjectName }}
-  - --label=org.opencontainers.image.url=https://github.com/kolikons/label-watch
-  - --label=org.opencontainers.image.source=https://github.com/kolikons/label-watch
-  - --label=org.opencontainers.image.version={{ .Version }}
-  - --label=org.opencontainers.image.revision={{ .FullCommit }}
-  - "--label=org.opencontainers.image.created={{.Date}}"
-  - --label=org.opencontainers.image.licenses=MIT
+  - image_templates:
+      - "kolikons/{{.ProjectName}}:{{ .Version }}-amd64"
+    use: buildx
+    dockerfile: Dockerfile
+    goarch: amd64
+    build_flag_templates:
+      - "--platform=linux/amd64"
+      - --label=org.opencontainers.image.title={{ .ProjectName }}
+      - --label=org.opencontainers.image.description={{ .ProjectName }}
+      - --label=org.opencontainers.image.url=https://github.com/kolikons/label-watch
+      - --label=org.opencontainers.image.source=https://github.com/kolikons/label-watch
+      - --label=org.opencontainers.image.version={{ .Version }}
+      - --label=org.opencontainers.image.revision={{ .FullCommit }}
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - --label=org.opencontainers.image.licenses=MIT
+  - image_templates:
+      - "kolikons/{{.ProjectName}}:{{ .Version }}-arm64"
+    use: buildx
+    dockerfile: Dockerfile
+    goarch: arm64
+    build_flag_templates:
+      - "--platform=linux/arm64"
+      - --label=org.opencontainers.image.title={{ .ProjectName }}
+      - --label=org.opencontainers.image.description={{ .ProjectName }}
+      - --label=org.opencontainers.image.url=https://github.com/kolikons/label-watch
+      - --label=org.opencontainers.image.source=https://github.com/kolikons/label-watch
+      - --label=org.opencontainers.image.version={{ .Version }}
+      - --label=org.opencontainers.image.revision={{ .FullCommit }}
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - --label=org.opencontainers.image.licenses=MIT
+docker_manifests:
+  - name_template: "kolikons/{{.ProjectName}}:{{ .Version }}"
+    image_templates:
+      - "kolikons/{{.ProjectName}}:{{ .Version }}-amd64"
+      - "kolikons/{{.ProjectName}}:{{ .Version }}-arm64"
+  - name_template: "kolikons/{{.ProjectName}}:latest"
+    image_templates:
+      - "kolikons/{{.ProjectName}}:{{ .Version }}-amd64"
+      - "kolikons/{{.ProjectName}}:{{ .Version }}-arm64"
 changelog:
   sort: asc
   filters:
     exclude:
-    - '^doc:'
-    - 'typo'
+      - "^doc:"
+      - "typo"
 signs:
   - artifacts: checksum
     args: ["--batch", "-u", "{{ .Env.GPG_FINGERPRINT }}", "--output", "${signature}", "--detach-sign", "${artifact}"]
