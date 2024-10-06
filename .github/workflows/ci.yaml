@@ -31,6 +31,6 @@ jobs:
           go test ./...
 
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v2
+        uses: goreleaser/goreleaser-action@v6
         with:
           args: release --snapshot --skip-publish --skip-sign --rm-dist
