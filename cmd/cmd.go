@@ -32,10 +32,10 @@ func opts() (c *Command, e error) {
 		&c.Interval,
 		"interval",
 		"",
-		"(optional) Start application in deamon mode. Supports format: 's', 'm', 'h'.",
+		"(optional) Start application in daemon mode. Supports format: 's', 'm', 'h'.",
 	)
 
-	// Uses for finding label and conver to node-role. It's requered
+	// Uses for finding label and convert to node-role. It's required
 	flag.StringVar(
 		&c.Label,
 		"label",

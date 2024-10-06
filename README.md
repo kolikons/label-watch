@@ -110,7 +110,7 @@ brew install kolikons/tap/label-watch
 label-watch --help
 Usage of label-watch:
   -interval string
-    	(optional) Start application in deamon mode. Supports format: 's', 'm', 'h'.
+    	(optional) Start application in daemon mode. Supports format: 's', 'm', 'h'.
   -kubeconfig string
     	(optional) absolute path to the kubeconfig file
   -label string

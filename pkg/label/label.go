@@ -119,7 +119,7 @@ func RunLabel(c *cmd.Command) {
 			}
 
 			if nodePatched == false {
-				fmt.Printf("Node %s wasn't patched becuase missed Label: %s\n", node.GetName(), l)
+				fmt.Printf("Node %s wasn't patched because missed Label: %s\n", node.GetName(), l)
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 module github.com/kolikons/label-watch
 
-go 1.17
+go 1.18
 
 replace k8s.io/client-go => k8s.io/client-go v0.23.4
 
