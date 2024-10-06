@@ -1,6 +1,8 @@
+version: 2
 project_name: label-watch
 builds:
   - env: [CGO_ENABLED=0]
+    binary: label-watch
     goos:
       - linux
       - darwin
@@ -9,41 +11,64 @@ builds:
       - arm64
     ignore:
       - goos: darwin
-        goarch: '386'
-      - goos: linux
-        goarch: arm64
+        goarch: "386"
 dockers:
-- image_templates:
-   - "kolikons/{{.ProjectName}}:{{ .Version }}"
-   - "kolikons/{{.ProjectName}}:latest"
-  dockerfile: Dockerfile
-  goos: linux
-  goarch: amd64
-  build_flag_templates:
-  - --label=org.opencontainers.image.title={{ .ProjectName }}
-  - --label=org.opencontainers.image.description={{ .ProjectName }}
-  - --label=org.opencontainers.image.url=https://github.com/kolikons/label-watch
-  - --label=org.opencontainers.image.source=https://github.com/kolikons/label-watch
-  - --label=org.opencontainers.image.version={{ .Version }}
-  - --label=org.opencontainers.image.revision={{ .FullCommit }}
-  - "--label=org.opencontainers.image.created={{.Date}}"
-  - --label=org.opencontainers.image.licenses=MIT
+  - image_templates:
+      - "kolikons/{{.ProjectName}}:{{ .Version }}-amd64"
+    use: buildx
+    dockerfile: Dockerfile
+    goos: linux
+    goarch: amd64
+    build_flag_templates:
+      - "--platform=linux/amd64"
+      - --label=org.opencontainers.image.title={{ .ProjectName }}
+      - --label=org.opencontainers.image.description={{ .ProjectName }}
+      - --label=org.opencontainers.image.url=https://github.com/kolikons/label-watch
+      - --label=org.opencontainers.image.source=https://github.com/kolikons/label-watch
+      - --label=org.opencontainers.image.version={{ .Version }}
+      - --label=org.opencontainers.image.revision={{ .FullCommit }}
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - --label=org.opencontainers.image.licenses=MIT
+  - image_templates:
+      - "kolikons/{{.ProjectName}}:{{ .Version }}-arm64"
+    use: buildx
+    dockerfile: Dockerfile
+    goos: linux
+    goarch: arm64
+    build_flag_templates:
+      - "--platform=linux/arm64"
+      - --label=org.opencontainers.image.title={{ .ProjectName }}
+      - --label=org.opencontainers.image.description={{ .ProjectName }}
+      - --label=org.opencontainers.image.url=https://github.com/kolikons/label-watch
+      - --label=org.opencontainers.image.source=https://github.com/kolikons/label-watch
+      - --label=org.opencontainers.image.version={{ .Version }}
+      - --label=org.opencontainers.image.revision={{ .FullCommit }}
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - --label=org.opencontainers.image.licenses=MIT
+docker_manifests:
+  - name_template: "kolikons/{{.ProjectName}}:{{ .Version }}"
+    image_templates:
+      - "kolikons/{{.ProjectName}}:{{ .Version }}-amd64"
+      - "kolikons/{{.ProjectName}}:{{ .Version }}-arm64"
+  - name_template: "kolikons/{{.ProjectName}}:latest"
+    image_templates:
+      - "kolikons/{{.ProjectName}}:{{ .Version }}-amd64"
+      - "kolikons/{{.ProjectName}}:{{ .Version }}-arm64"
 changelog:
   sort: asc
   filters:
     exclude:
-    - '^doc:'
-    - 'typo'
+      - "^doc:"
+      - "typo"
 signs:
   - artifacts: checksum
     args: ["--batch", "-u", "{{ .Env.GPG_FINGERPRINT }}", "--output", "${signature}", "--detach-sign", "${artifact}"]
 brews:
   - name: label-watch
-    tap:
+    repository:
       owner: kolikons
       name: homebrew-tap
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
-    folder: Formula
     homepage: "https://github.com/kolikons/label-watch"
     description: "label-watch checks a specific label on worker node then create an label"
     install: |

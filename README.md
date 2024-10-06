@@ -12,11 +12,14 @@ When Kubernetes cluster's created, worker nodes is tagged as none.
 ---
 
 ## Usage of label-watch
+
 label-watch supports two mode of running. The first one is outside kubernetes cluster and inside
 
 #### Example label-watch outside kuberntes cluster:
+
 1. You must have `kube config` that uses for connecting `kubectl`
 2. Run command with the following flags:
+
 ```sh
 $ kubectl get node
 AME                 STATUS     ROLES                  AGE   VERSION
@@ -46,8 +49,10 @@ kind-worker2         Ready    <none>                 2m36s   v1.20.2
 ```
 
 #### Example label-watch inside kubernetes cluster:
+
 1. Modify ARGs in [scripts/deployment.yml](scripts/deployment.yml#22)
 2. Deploy the kubernetes manifest from [scripts/deployment.yml](scripts/deployment.yml)
+
 ```sh
 $ kubectl get node
 NAME                 STATUS   ROLES                  AGE   VERSION
@@ -67,12 +72,15 @@ kind-worker2         Ready    <none>                 13m   v1.20.2
 ```
 
 # Helm
+
 Add kolikons repository to Helm repos:
+
 ```bash
 helm repo add kolikons https://kolikons.github.io/charts/
 ```
 
 Install label-watch
+
 ```bash
 helm install label-watch kolikons/label-watch \
 --namespace kube-system
@@ -85,6 +93,7 @@ helm install label-watch kolikons/label-watch \
 ```sh
 docker run kolikons/label-watch:latest
 ```
+
 ---
 
 # Homebrew
@@ -92,14 +101,16 @@ docker run kolikons/label-watch:latest
 ```sh
 brew install kolikons/tap/label-watch
 ```
+
 ---
 
 ## label-watch ARGS
+
 ```sh
 label-watch --help
 Usage of label-watch:
   -interval string
-    	(optional) Start application in deamon mode. Supports format: 's', 'm', 'h'.
+    	(optional) Start application in daemon mode. Supports format: 's', 'm', 'h'.
   -kubeconfig string
     	(optional) absolute path to the kubeconfig file
   -label string

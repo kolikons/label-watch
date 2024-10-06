@@ -13,7 +13,7 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-// convertTime coverting cmd flags paramst to interval
+// Convert time by converting command flags parameters to intervals.
 func convertTime(s string) time.Duration {
 	d, err := time.ParseDuration(s)
 	if err != nil {
@@ -65,7 +65,7 @@ func RunTimerLabel(c *cmd.Command) {
 		}
 	})
 
-	// wait for all errgroup goroutines
+	// wait for all err group goroutines
 	err := g.Wait()
 	if err != nil {
 		if errors.Is(err, context.Canceled) {
