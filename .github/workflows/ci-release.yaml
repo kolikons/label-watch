@@ -1,0 +1,29 @@
+name: Go Build via release
+on:
+  pull_request:
+    paths:
+      - "cmd/**"
+      - "pkg/**"
+      - .goreleaser.yaml
+      - Dockerfile
+jobs:
+  ci-build:
+    runs-on: ubuntu-latest
+    name: Build & Test
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.18
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v6
+        with:
+          args: release --snapshot --clean --skip=publish,sign
